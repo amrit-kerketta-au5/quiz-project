@@ -23,5 +23,8 @@ app.use(session({
 
 app.use(express.static('public'))
 app.use('/', require('./routes/index'))
-
-app.listen(4500, console.log('Server Started'))
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});
+//app.listen(4500, console.log('Server Started'))
