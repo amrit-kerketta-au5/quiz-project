@@ -24,6 +24,7 @@ app.use(session({
 app.use(express.static('public'))
 app.use('/', require('./routes/index'))
 const PORT = process.env.PORT || 3000;
+console.log(process.env)
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
