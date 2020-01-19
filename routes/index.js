@@ -262,7 +262,8 @@ function processData(result, flag) {
 }
 //1st user
 routes.post("/getques", function(req, res) {
-    var url = "app.codeyourwork.in:3000";
+    //var url = "app.codeyourwork.in:3000";
+    var url = "https://quiz-corner.herokuapp.com/"
     //var url = "http://localhost:4500";
     //var url = window.location.origin  
     console.log(url)
