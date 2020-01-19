@@ -173,8 +173,9 @@ function setFbLink() {
     var x = document.querySelectorAll('.shared')
 
     var link = document.getElementById('uniqueLink').value;
+    var finallink = encodeURIComponent(link);
 
-    var finalhref = "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F" + link + "%2F&amp;src=sdkpreparse"
+    var finalhref = "https://www.facebook.com/sharer/sharer.php?u=" + finallink + "%2F&amp;src=sdkpreparse"
     x[0].href = finalhref
         //twitter
 
@@ -184,8 +185,10 @@ function setFbLink() {
 
 function setTwLink() {
     var link = document.getElementById('uniqueLink').value;
+    var finallink = encodeURIComponent(link);
     var y = document.getElementById('twitterlink')
-    y.href = "https://twitter.com/intent/tweet?text=" + link
+    
+    y.href = "https://twitter.com/intent/tweet?text=" + finallink
 }
 
 function copyLink(val) {
@@ -205,3 +208,4 @@ function darkMode() {
     var element = document.body;
     element.classList.toggle("dark-mode");
  }
+

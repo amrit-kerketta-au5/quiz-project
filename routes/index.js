@@ -262,7 +262,7 @@ function processData(result, flag) {
 }
 //1st user
 routes.post("/getques", function(req, res) {
-    var url = "http://localhost:4500/";
+    var url = "app.codeyourwork.in:4500/";
     var gameId = parseInt(req.body.gameId);
     // console.log(req.body.data);
     if (req.body.data) {
@@ -279,7 +279,11 @@ routes.post("/getques", function(req, res) {
                     res.status(400).end();
                 } else {
                     res.status(200);
+                    
                     res.send(url + "uniq/" + "?game_id=1&t=" + token);
+                    //var finallink = url + "uniq/" + "?game_id=1&t=" + token
+                    //console.log(typeof(finallink))
+                    //res.send(finallink)
                 }
             });
         });
