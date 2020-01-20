@@ -135,17 +135,26 @@ routes.post("/signupuser", function(req, res) {
 routes.post('/loginuser', function(req, res) {
     DB.collection('Users').findOne({ usn: req.body.usn }, function(err, result) {
         if (err) {
-            res.redirect('/')
+            res.redirect('/') //connection to the server
+            
         } else {
-            if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
-                req.session.user = result.usn
-                res.render("homepage", {
-                    loggedin: true , imglink:result.dp
-                });
-            } else {
-                res.render('homepage');
+            
+            if(result){
+                if (  sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
+                    req.session.user = result.usn
+                    res.render("homepage", {
+                        loggedin: true , imglink:result.dp
+                    });
+                } else {
+                    res.render('homepage');
+                }
             }
+            else{
+                res.render('homepage')
+            }
+            
         }
+        
     })
 });
 
@@ -236,6 +245,7 @@ routes.get('/', function(req, res) {
             //     res.render('profile')
             // } else {
                 res.render('homepage')
+
                 // }
                 
             })
@@ -415,17 +425,29 @@ routes.get("/uniq", function(req, res) {
 });
 
 routes.get('/game', function(req, res) {
-    res.render('gamepage', {
-        page: true
-    })
+    if(req.session.user){
+        res.render('gamepage', {
+            page: true
+        })
+    }
+    else{
+        res.render('homepage',{notuser:true});
+    }
+    
 })
 
 routes.get('/gamestart', function(req, res) {
-    res.render('gamepage', {
-        gamestart: true,
-        sessionuser: req.session.user,
-
-    })
+    if(req.session.user){
+        res.render('gamepage', {
+            gamestart: true,
+            sessionuser: req.session.user,
+    
+        })
+    }
+    else{
+        res.redirect('/')
+    }
+   
 })
 
 routes.get('/result', function(req, res) {
@@ -477,51 +499,38 @@ routes.get('/uuid', function(req, res) {
     );
 });
 
-routes.post("/updateprofile", function(req, res) {
-    var pass = req.body.pass;
-    var user = req.session.user   
+routes.post("/updateprofile", function(req, res) {    
    
    if(req.files)
    {
        var dp = req.files.profilepic
        var pid = req.session.user
        
-       cloudinary.uploader.destroy(pid,function(err,result){
-          if(!err)
-          {
-            cloudinary.uploader.upload(dp.tempFilePath,{public_id:pid},function(err,result)
+      
+            cloudinary.uploader.upload(dp.tempFilePath,{public_id:pid,overwrite:true},function(err,result)
             {
              if(!err)
              {
+                
                  //console.log(result)
                  DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
-                     if (err) {
-                         //res.redirect('/')
-                         console.log(err)
-                     } else {
-                         
-                         res.redirect('/profile')
-                     }
+                     if (!err) {
+                        res.redirect('/profile')
+                        
+                     } 
                  })
              }
-             else{
-                 console.log(err)
-             }
+             
                
             })
-          }
-       })
+          
        
    }
    if(req.body.name)
    {
        //console.log(req.body.name)
        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "name": req.body.name } }, function(err, result) {
-        if (err) {
-            //res.redirect('/')
-            console.log(err)
-        } else {
-           
+        if (!err) {
             res.redirect('/profile')
         }
     })
@@ -530,26 +539,18 @@ routes.post("/updateprofile", function(req, res) {
    {
        //console.log(req.body.name)
        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "age": req.body.age } }, function(err, result) {
-        if (err) {
-            //res.redirect('/')
-            console.log(err)
-        } else {
-          
+        if (!err) {
             res.redirect('/profile')
-        }
+        } 
     })
    }
    if(req.body.gender)
    {
        //console.log(req.body.name)
        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "gender": req.body.gender } }, function(err, result) {
-        if (err) {
-            //res.redirect('/')
-            console.log(err)
-        } else {
-           
+        if (!err) {
             res.redirect('/profile')
-        }
+        } 
     })
    }
    if(req.body.pwd)

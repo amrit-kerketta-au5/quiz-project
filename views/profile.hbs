@@ -234,7 +234,16 @@
       <div class="modal-body">
         <form action="updateprofile" method="post">
             <div class="form-group">
-                <input type="text" name="gender" placeholder="select gender" class="form-control">
+                <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Select Gender
+                          </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <h6 class="dropdown-item" href="#">Male</h6>
+    <a class="dropdown-item" href="#">Female</a>
+    <a class="dropdown-item" href="#">Other</a>
+  </div>
+</div>
             </div>
             <button type="" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

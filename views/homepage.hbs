@@ -169,11 +169,17 @@
     </div>
 
     <div class="container">
+        
         <div id="row" class="row">
             <div class="col-md-8 bg-light shadow rounded">
                 <div id="carouselExampleIndicators" class="carousel slide mt-3" data-ride="carousel">
-                    <div class="carousel-inner">
+                    <div class="carousel-inner">                        
+                        {{#if notuser}}
+                        <a class="example_e" href="/game" data-toggle="modal" data-dismiss="modal"
+                                        data-target="#exampleModal"><i class="fa fa-play-circle-o"></i></a>
+                        {{else}}
                         <a class="example_e" href="/game"><i class="fa fa-play-circle-o"></i></a>
+                        {{/if}}
                         <div class="container blackCon"></div>
                         <div class="carousel-item active">
                             <img src="/img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
@@ -197,6 +203,7 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
+
                     </div>
                 </div>
             </div>
