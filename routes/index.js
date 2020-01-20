@@ -13,6 +13,7 @@ cloudinary.config({
     api_secret: '4rxarmWlvptpb3Y5z0U2mPpZjVg' 
   });
 const file = "games.json";
+
 //var url = "mongodb://localhost:27017"
 // var url = "mongodb://localhost:27017"
 var url = 'mongodb+srv://admin:admin@quiz-corner-nt3rg.mongodb.net/test?retryWrites=true&w=majority';
@@ -52,6 +53,8 @@ mongoDB.MongoClient.connect(url, {
     }
 })
 
+
+
 var transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -61,22 +64,21 @@ var transporter = nodemailer.createTransport({
         pass: 'jnef9820'
     }
 });
-
 function importDb() {
     jsonfile.readFile(file, function(err, obj) {
         if (err) throw err;
         else {
             // defQues = obj;
             // console.log(obj);
-
+            
             // gameSchema["questions"] = obj;
             // console.log(gameSchema.questions);
-
+            
             DB.collection("games").insertMany(obj, { ordered: true }, function(err, gameRes) {
                 if (err) throw err;
                 // g_count = ++defGames.slice(-1)[0]._id;
                 // console.log(gameRes);
-
+                
                 g_count = 2;
             });
         }
@@ -152,7 +154,7 @@ routes.get("/forgot", function(req, res) {
 });
 
 routes.post("/forgot", function(req, res) {
-
+    
     DB.collection('Users').findOne({ $or: [{ email: req.body.field }, { usn: req.body.field }] }, function(err, userObj) {
         if (err || !userObj) {
             // res.redirect('/');
@@ -167,7 +169,7 @@ routes.post("/forgot", function(req, res) {
                     subject: "Reset Password",
                     text: 'Hello ' + userObj.usn + '! You have requested to reset your password. Click on the below link to reset your password.' + "\nhttp://localhost:4500/reset/token/" + token
                 }
-
+                
                 transporter.sendMail(mailOptions, function(mailErr, info) {
                     if (mailErr) res.status(400).end();
                     else {
@@ -229,37 +231,37 @@ routes.post("/pwd", function(req, res) {
 });
 
 routes.get('/', function(req, res) {
-        //Todo Render only homepage
+    //Todo Render only homepage
         // if (req.session.user) {
-        //     res.render('profile')
-        // } else {
-        res.render('homepage')
-            // }
-
-    })
-    // routes.use(function(req, res, next) {
-    //     if (req.session.user) next();
-    //     else res.send("Please Login");
+            //     res.render('profile')
+            // } else {
+                res.render('homepage')
+                // }
+                
+            })
+            // routes.use(function(req, res, next) {
+                //     if (req.session.user) next();
+                //     else res.send("Please Login");
     // });
-
-routes.get('/home', function(req, res) {
-    res.render("homepage");
-});
-
-function processData(result, flag) {
-    for (let x = 0; x < result.questions.length; x++) {
-        var obj = result.questions[x];
-        var arr = obj.options;
-        for (let i = arr.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            arr[i] = arr.splice(j, 1, arr[i])[0];
-            if (flag) arr[i] = { option: arr[i], is_answer: false }
+    
+    routes.get('/home', function(req, res) {
+        res.render("homepage");
+    });
+    
+    function processData(result, flag) {
+        for (let x = 0; x < result.questions.length; x++) {
+            var obj = result.questions[x];
+            var arr = obj.options;
+            for (let i = arr.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                arr[i] = arr.splice(j, 1, arr[i])[0];
+                if (flag) arr[i] = { option: arr[i], is_answer: false }
+            }
+            if (flag) obj.options.shift();
+            result.questions[x].options = arr;
         }
-        if (flag) obj.options.shift();
-        result.questions[x].options = arr;
+        return result;
     }
-    return result;
-}
 //1st user
 routes.post("/getques", function(req, res) {
     //var url = "app.codeyourwork.in:3000";
@@ -306,10 +308,34 @@ routes.post("/getques", function(req, res) {
         res.json(processData(req.session.gameData, false));
     }
 });
+routes.get('/admin',function(req,res)
+{
+    res.render('admin',{iconic:'iconic.json'})
+})
+const fileiconic = "iconic.json";
+routes.post('/inserticonic',function(req,res){
+   // var data = JSON.parse('iconic.json')
+    
+
+   jsonfile.readFile(fileiconic, function(err, obj) {
+       //.log(obj)
+    if (err) {throw err}
+    else {        
+        DB.collection("iconic").insertMany(obj, function(err, gameRes)
+         {
+            //if (err) throw err;
+            console.log('Error',err)
+            console.log('Result',gameRes)
+            g_count = 3;
+            res.redirect('/')
+        });
+    }
+});
+})
 
 // routes.post("/getques", function(req, res) {
-//     var gameId = parseInt(req.body.gameId, 10);
-//     var quesId = parseInt(req.body.quesId) - 1;
+    //     var gameId = parseInt(req.body.gameId, 10);
+    //     var quesId = parseInt(req.body.quesId) - 1;
 //     var answer = req.body.answer;
 //     if (Object.keys(gameData).length === 0 || curGameId !== gameId) {
 //         curGameId = gameId;

@@ -74,7 +74,11 @@ body {
     transition: 0.3s;
     cursor: pointer;
 }
-
+.centerimg {
+    height: 250px;
+    width: 250px;
+    object-fit: noner;
+  }
 #editDP:hover {
     filter: opacity(100%);
 }
