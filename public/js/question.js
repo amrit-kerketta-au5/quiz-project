@@ -68,11 +68,11 @@ function getNext() {
                 $('.semi-c').addClass('averageScore')
             }
 
-            else if(score>7){
+             if(score>7){
                 $('.semi-c').addClass('goodScore')
             }
 
-            else if(score>11){
+             if(score>11){
                 $('.semi-c').addClass('greatScore')
             }
         });
