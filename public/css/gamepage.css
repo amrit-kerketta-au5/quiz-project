@@ -273,7 +273,7 @@ body {
 .semi-c {
     z-index: 2;
     position: absolute;
-    background-color: #5664F9;
+    background-color: rgb(240, 15, 15);
     width: 400px;
     height: 200px;
     top: 200px;
