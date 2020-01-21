@@ -98,6 +98,10 @@ function setData() {
     questNo.text("Question " + data.questions[quesId - 1].number + ".");
     questDiv.text(data.questions[quesId - 1].question);
     for (let i = 0; i < 4; i++) {
+        if(data.questions[quesId - 1].options[i].is_answer)
+    {
+        console.log(i+1)
+    }
         optionsDiv[i].text(data.questions[quesId - 1].options[i].option);
     }
 }

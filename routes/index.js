@@ -280,7 +280,7 @@ routes.post("/getques", function(req, res) {
     var url = "https://quiz-corner.herokuapp.com/"
     //var url = "http://localhost:4500";
     //var url = window.location.origin  
-    console.log(url)
+    //console.log(url)
     var gameId = parseInt(req.body.gameId);
     // console.log(req.body.data);
     if (req.body.data) {
