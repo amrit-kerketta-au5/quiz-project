@@ -64,6 +64,17 @@ function getNext() {
             // //IMPORTANT DONT DELETE! BOND METER CODE!
             $('.bond-container').addClass('bond-meter-loaded');
             $('#percent').text(score + '/15').fadeIn('slow');
+            if(score>4){
+                $('.semi-c').addClass('averageScore')
+            }
+
+            else if(score<=9){
+                $('.semi-c').addClass('goodScore')
+            }
+
+            else if(score>9){
+                $('.semi-c').addClass('greatScore')
+            }
         });
         // $('.bond-meter-show').each(function(item) {
         //         item.click(function() {

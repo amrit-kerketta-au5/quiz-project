@@ -21,7 +21,7 @@
             <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/home">Home</a></div>
         </div>
         <form class="form-inline col-4">
-            <input id="input" class="form-control w-100" type="search" id="searchbar" onclick="searchgame"  placeholder="Search for quiz games"
+            <input id="input" class="form-control w-100" type="search" id="searchbar"  placeholder="Search for quiz games"
                 aria-label="Search"><i class="fa fa-search"></i>
         </form>
         <div>
@@ -49,6 +49,10 @@
             data-target="#exampleModal">Login/Register</a>
         {{/if}}
     </nav>
+    <div id="myProgress">
+  <div id="myBar"></div>
+</div>
+</div>
     <br>
 
     {{!-- modal for login --}}
@@ -178,7 +182,7 @@
                         <a class="example_e" href="/game" data-toggle="modal" data-dismiss="modal"
                                         data-target="#exampleModal"><i class="fa fa-play-circle-o"></i></a>
                         {{else}}
-                        <a class="example_e" href="/game"><i class="fa fa-play-circle-o"></i></a>
+                        <a class="example_e" id="playbtn" href="/game"><i class="fa fa-play-circle-o"></i></a>
                         {{/if}}
                         <div class="container blackCon"></div>
                         <div class="carousel-item active">

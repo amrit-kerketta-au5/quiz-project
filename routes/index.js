@@ -244,8 +244,12 @@ routes.get('/', function(req, res) {
         // if (req.session.user) {
             //     res.render('profile')
             // } else {
-                res.render('homepage')
-
+                if(req.session.user)
+                {
+                    res.render('homepage',)
+                }
+                
+                
                 // }
                 
             })
