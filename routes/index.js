@@ -244,13 +244,8 @@ routes.get('/', function(req, res) {
         // if (req.session.user) {
             //     res.render('profile')
             // } else {
-                if(req.session.user)
-                {
-                    res.render('homepage',)
-                }
-                else{
-                    res.redirect('/')
-                }
+                
+                    res.render('homepage')
                 
                 
                 // }
