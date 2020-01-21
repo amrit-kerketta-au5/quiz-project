@@ -248,6 +248,9 @@ routes.get('/', function(req, res) {
                 {
                     res.render('homepage',)
                 }
+                else{
+                    res.redirect('/')
+                }
                 
                 
                 // }
